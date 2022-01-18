@@ -91,6 +91,22 @@ export default function ScrollPicker({
     [initialized, itemHeight, selectedIndex, sView, timer]
   );
 
+  useEffect(
+    () => {
+      if (!initialized) return;
+
+      setTimeout(() => {
+        const y = itemHeight * selectedIndex;
+        sView?.current?.scrollTo({ y: y });
+        if (props.onValueChange) {
+          const selectedValue = props.dataSource[selectedIndex];
+          props.onValueChange(selectedValue, selectedIndex);
+        }
+      }, 0);
+    },
+    [initialized, selectedIndex]
+  );
+
   const renderPlaceHolder = () => {
     const h = (wrapperHeight - itemHeight) / 2;
     const header = <View style={{ height: h, flex: 1 }} />;
