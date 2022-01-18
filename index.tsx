@@ -10,6 +10,7 @@ import {
   View,
   ViewProps,
   ViewStyle,
+  TouchableOpacity
 } from "react-native";
 
 function isNumeric(str: string | unknown): boolean {
@@ -105,15 +106,17 @@ export default function ScrollPicker({
     const item = props.renderItem ? (
       props.renderItem(data, index, isSelected)
     ) : (
-      <Text
-        style={
-          isSelected
-            ? [styles.itemText, styles.itemTextSelected]
-            : styles.itemText
-        }
-      >
-        {data}
-      </Text>
+      <TouchableOpacity onPress={() => setSelectedIndex(index)}>
+        <Text
+          style={
+            isSelected
+              ? [styles.itemText, styles.itemTextSelected]
+              : styles.itemText
+          }
+        >
+          {data}
+        </Text>
+      </TouchableOpacity>
     );
 
     return (
